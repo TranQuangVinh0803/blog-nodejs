@@ -30,6 +30,31 @@ app.get('/gioi-thieu', (req, res) => {
   `);
 });
 
+// ==========================================
+// BỔ SUNG BUỔI 04: ROUTING & QUERY PARAMETERS
+// ==========================================
+
+// Route xử lý cho trang About
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+
+// Route xử lý cho trang Liên hệ
+app.get('/contact', (req, res) => {
+    res.render('contact');
+});
+
+// Route hiển thị trang Tìm kiếm & Bắt dữ liệu người dùng nhập vào
+app.get('/search', (req, res) => {
+    // req.query chứa toàn bộ các parameters trên URL
+    console.log("-----------------------------------------");
+    console.log("Từ khóa tìm kiếm nhận được (q):", req.query.q);
+    console.log("Loại tìm kiếm nhận được (type):", req.query.type); // BẮT THÊM BIẾN TYPE
+    console.log("-----------------------------------------");
+
+    res.render('search');
+});
+
 // Kích hoạt Server
 app.listen(port, () => {
     console.log(`Server đang chạy cực mượt tại: http://localhost:${port}`);

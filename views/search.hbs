@@ -1,0 +1,20 @@
+<div class="container mt-5" style="padding-top: 80px; min-height: 80vh;">
+    <h2 class="h2 text-primary">Tìm kiếm bài viết</h2>
+    <form action="/search" method="GET" class="mt-4 col-md-6 px-0">
+        <div class="form-group">
+            <label for="search-input" class="font-weight-bold">Từ khóa</label>
+            <input type="text" name="q" class="form-control" id="search-input" placeholder="Nhập từ khóa cần tìm...">
+        </div>
+
+        <!-- BÀI TẬP THỰC HÀNH: Thêm danh sách chọn loại tìm kiếm -->
+        <div class="form-group mt-3">
+            <label for="search-type" class="font-weight-bold">Tìm kiếm theo</label>
+            <select name="type" class="form-control" id="search-type">
+                <option value="post">Bài viết</option>
+                <option value="author">Tác giả</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Tìm kiếm</button>
+    </form>
+</div>
