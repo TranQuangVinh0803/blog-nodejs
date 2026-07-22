@@ -1,0 +1,31 @@
+<div class="container mt-5" style="padding-top: 100px; min-height: 80vh;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm p-4" style="border-radius: 12px;">
+                <h3 class="text-primary font-weight-bold mb-4">Đăng bài Blog mới</h3>
+
+                <!-- Form POST gửi dữ liệu lên /blogs/create -->
+                <form method="POST" action="/blogs/create">
+                    <div class="form-group mb-3">
+                        <label for="name" class="font-weight-bold text-secondary">Tiêu đề bài viết</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tiêu đề...">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="description" class="font-weight-bold text-secondary">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="Nhập tóm tắt bài viết...">
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label for="content" class="font-weight-bold text-secondary">Nội dung chi tiết</label>
+                        <textarea class="form-control" id="content" name="content" rows="6"
+                            placeholder="Nhập nội dung..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary px-4" style="border-radius: 20px;">Đăng bài</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

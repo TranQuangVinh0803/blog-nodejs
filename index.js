@@ -14,12 +14,25 @@ app.engine('hbs', engine({ extname: '.hbs' }));
 app.set('view engine', 'hbs');
 app.set('views', './views'); // Chỉ định thư mục chứa giao diện views
 
-// Route Trang Chủ (Đã sửa từ res.send thành res.render để chạy giao diện mẫu)
+// ==========================================
+// 🚨 BỔ SUNG BUỔI 05: MIDDLEWARE XỬ LÝ FORM DATA
+// (Bắt buộc phải đặt trên tất cả các Route điều hướng)
+// ==========================================
+app.use(express.urlencoded({
+    extended: true
+})); // Dùng để phân giải dữ liệu từ Form HTML thông thường
+app.use(express.json()); // Dùng để phân giải dữ liệu dạng JSON
+
+// ==========================================
+// ROUTES CƠ BẢN (BUỔI 1, 3)
+// ==========================================
+
+// Route Trang Chủ
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-// Route Bài Tập hiển thị thông tin cá nhân của ông
+// Route Bài Tập hiển thị thông tin cá nhân
 app.get('/gioi-thieu', (req, res) => {
     res.send(`
     <h1>Thông Tin Sinh Viên</h1>
@@ -46,13 +59,52 @@ app.get('/contact', (req, res) => {
 
 // Route hiển thị trang Tìm kiếm & Bắt dữ liệu người dùng nhập vào
 app.get('/search', (req, res) => {
-    // req.query chứa toàn bộ các parameters trên URL
     console.log("-----------------------------------------");
     console.log("Từ khóa tìm kiếm nhận được (q):", req.query.q);
-    console.log("Loại tìm kiếm nhận được (type):", req.query.type); // BẮT THÊM BIẾN TYPE
+    console.log("Loại tìm kiếm nhận được (type):", req.query.type);
+    console.log("-----------------------------------------");
+    res.render('search');
+});
+
+// ==========================================
+// 🎯 BỔ SUNG BUỔI 05: XỬ LÝ FORM ĐĂNG BÀI & LOGIN
+// ==========================================
+
+// --- CHỨC NĂNG ĐĂNG BÀI BLOG ---
+// GET: Hiển thị trang tạo bài viết
+app.get('/blogs/create', (req, res) => {
+    res.render('create');
+});
+
+// POST: Hứng dữ liệu từ form Đăng bài gửi lên
+app.post('/blogs/create', (req, res) => {
+    console.log("-----------------------------------------");
+    console.log("Dữ liệu nhận được từ Form Đăng bài:", req.body);
+    console.log("-----------------------------------------");
+    res.json(req.body); // Trả dữ liệu về trình duyệt dưới dạng JSON để kiểm tra
+});
+
+// --- CHỨC NĂNG ĐĂNG NHẬP (BÀI TẬP THỰC HÀNH) ---
+// GET: Hiển thị trang đăng nhập
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+// POST: Xử lý logic kiểm tra tài khoản mật khẩu
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    console.log("-----------------------------------------");
+    console.log("Thử đăng nhập với tài khoản:", username);
     console.log("-----------------------------------------");
 
-    res.render('search');
+    if (username === 'admin' && password === '123456') {
+        console.log("👉 Đăng nhập thành công!");
+        res.send("Đăng nhập thành công!");
+    } else {
+        console.log("❌ Sai tài khoản hoặc mật khẩu!");
+        res.send("Sai tài khoản hoặc mật khẩu!");
+    }
 });
 
 // Kích hoạt Server
